@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f2992d3eea4d61479db91a73df51fcd, type: 3}
+  m_Name: War
+  m_EditorClassIdentifier: 
+  m_MultChoiceData:
+  - m_Question: Car
+    m_Options:
+    - Volvo
+    - Volkswagen
+    - Ford
+    CorrectAnswer: 1
+  - m_Question: Local Team
+    m_Options:
+    - Dodgers
+    - Mets
+    - White Sox
+    CorrectAnswer: 2
+  m_SubjectsMadeAvailable: 04000000
+  HasQuestions: 0

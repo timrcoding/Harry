@@ -12,6 +12,8 @@ public class TextAndChoiceManager : MonoBehaviour
     [SerializeField] private Button m_CheckButton;
     [SerializeField] private Button m_ContinueButton;
     [SerializeField] private Transform MultChoiceParent;
+    [SerializeField] private Image MultChoiceParentImage;
+    [SerializeField] private Color MultChoiceParentColor;
     [SerializeField] private GameObject MultChoicePrefab;
     private bool CanPrint = true;
     [SerializeField] private List<SubjectToScriptableObject> SubjectToScriptableObjects;
@@ -19,7 +21,6 @@ public class TextAndChoiceManager : MonoBehaviour
 
     //Screen Objects
     [SerializeField] private TextMeshProUGUI DialogText;
-    [SerializeField] private Subject m_SubjectOverride;
     [SerializeField] private Scrollbar m_Scrollbar;
 
     //Sound
@@ -47,6 +48,7 @@ public class TextAndChoiceManager : MonoBehaviour
         m_ContinueButton.onClick.AddListener(ScrollToBottom);
         DialogText.text = "";
         MultChoiceParent.gameObject.SetActive(false);
+        MultChoiceParentImage.color = MultChoiceParentColor;
     }
 
     public void StartSubject()
@@ -81,11 +83,11 @@ public class TextAndChoiceManager : MonoBehaviour
                 DialogText.text += "\n\n";
                 if (PrintCount % 2 == 0)
                 {
-                    DialogText.text += TextList[PrintCount];
+                    DialogText.text += $"-{TextList[PrintCount]}";
                 }
                 else
                 {
-                    DialogText.text += $"{TextList[PrintCount]}";
+                    DialogText.text += TextList[PrintCount];
                 }
                 
 
@@ -103,13 +105,12 @@ public class TextAndChoiceManager : MonoBehaviour
                     }
                     yield return new WaitForSeconds(Random.Range(0.02f,0.05f));
                     
-                    if (i > 0)
-                    {
+                    
                         if (DialogText.text[i - 1] == '.' || DialogText.text[i - 1] == ',')
                         {
                             yield return new WaitForSeconds(Random.Range(0.7f, 1.0f));
                         }
-                    }
+                    
                 }
                 PrintCount++;
                 CanPrint = true;
@@ -169,12 +170,29 @@ public class TextAndChoiceManager : MonoBehaviour
     {
         if (CheckAllAnswers())
         {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Bell");
             CloseAndAdd();
         }
         else
         {
-            Debug.Log("Incorrect");
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Wrong");
+            ChangeImageToRed();
         }
+    }
+
+    void ChangeImageToRed()
+    {
+        LeanTween.value(gameObject, 0, 1, 2).setOnUpdate((value) =>{
+            MultChoiceParentImage.color = Color.Lerp(MultChoiceParentColor, Color.red, value);
+        }).setOnComplete(ChangeImageBack);
+    }
+
+    void ChangeImageBack()
+    {
+        LeanTween.value(gameObject, 1, 0, 2).setOnUpdate((value) =>
+        {
+            MultChoiceParentImage.color = Color.Lerp(MultChoiceParentColor, Color.red, value);
+        });
     }
 
     void CloseAndAdd()
@@ -217,10 +235,20 @@ public enum Subject
     Childhood,
     [StringValue("Mother")]
     Mother,
-    [StringValue("Religion")]
-    Synagogue,
-    [StringValue("The War")]
-    War
+    [StringValue("Evacuation")]
+    War,
+    [StringValue("Army")]
+    Army,
+    [StringValue("Now")]
+    Life,
+    [StringValue("Ending")]
+    Ending,
+    [StringValue("Therapy")]
+    Therapy,
+    [StringValue("Disconnection")]
+    Disconnection,
+    [StringValue("Finish")]
+    Finish
 }
 [System.Serializable]
 public struct SubjectToScriptableObject

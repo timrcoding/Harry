@@ -12,19 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f2992d3eea4d61479db91a73df51fcd, type: 3}
   m_Name: Mother
   m_EditorClassIdentifier: 
-  m_Character: 
   m_MultChoiceData:
   - m_Question: Job
     m_Options:
     - Typist
     - Clerk
     - Operator
-    CorrectAnswer: 2
+    CorrectAnswer: 1
   - m_Question: Cake
     m_Options:
     - Strudel
     - Dobosche
     - Torte
-    CorrectAnswer: 2
-  m_SubjectsMadeAvailable: 
+    CorrectAnswer: 0
+  m_SubjectsMadeAvailable: 03000000
   HasQuestions: 0

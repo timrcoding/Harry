@@ -38,7 +38,7 @@ public class MultipleChoiceQuestion : MonoBehaviour, IPointerDownHandler
     {
         if (CanRunCheck)
         {
-            if (m_Dropdown.value == m_Data.CorrectAnswer)
+            if (m_Dropdown.value == (int) m_Data.CorrectAnswer)
             {
                 CheckedCorrect = true;
             }

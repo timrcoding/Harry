@@ -19,6 +19,6 @@ public class SubjectChoice : MonoBehaviour
     void CallSubject()
     {
         GameManager.instance.StartDialogue(m_Subject);
-        GetComponent<ButtonTransitions>().FadeOut();
+        GetComponent<FadeTransitions>().FadeOut();
     }
 }

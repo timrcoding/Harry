@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class SO_Subject : ScriptableObject
 {
 
-    public List<Character> m_Character;
     public List<MultipleChoiceQuestionData> m_MultChoiceData;
     public List<Subject> m_SubjectsMadeAvailable;
     public bool HasQuestions;
@@ -31,10 +30,17 @@ public enum Character
     Computer
 }
 
+public enum Number
+{
+    One,
+    Two,
+    Three
+}
+
 [System.Serializable]
 public struct MultipleChoiceQuestionData
 {
     public string m_Question;
     public List<string> m_Options;
-    public int CorrectAnswer;
+    public Number CorrectAnswer;
 }
