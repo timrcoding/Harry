@@ -6,11 +6,12 @@ using UnityEngine.UI;
 
 public class TextIntroducer : MonoBehaviour
 {
-    public bool CanSet = true;
+    public bool CanSet;
     [FMODUnity.EventRef]
     public string chime;
     public CanvasGroup m_CanvasGroup;
     public Button m_Button;
+  
     public FadeTransitions FingerFade;
     void Start()
     {
@@ -20,6 +21,7 @@ public class TextIntroducer : MonoBehaviour
         {
             child.gameObject.SetActive(false);
         }
+        CanSet = true;
     }
 
     // Update is called once per frame
@@ -34,6 +36,18 @@ public class TextIntroducer : MonoBehaviour
                 FingerFade.FadeOut();
             }
         }
+    }
+
+    IEnumerator SetupText()
+    {
+        yield return new WaitForSeconds(Time.deltaTime);
+        SetNewText();
+        FMODUnity.RuntimeManager.PlayOneShot(chime);
+        if (FingerFade.gameObject.activeInHierarchy)
+        {
+            FingerFade.FadeOut();
+        }
+        
     }
 
     void SetNewText()

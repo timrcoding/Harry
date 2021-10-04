@@ -18,6 +18,7 @@ public class TextAndChoiceManager : MonoBehaviour
     private bool CanPrint = true;
     [SerializeField] private List<SubjectToScriptableObject> SubjectToScriptableObjects;
     private Dictionary<Subject, SO_Subject> SubjectToScriptableObjectDictionary;
+    [SerializeField] private Slider m_TextSlider;
 
     //Screen Objects
     [SerializeField] private TextMeshProUGUI DialogText;
@@ -89,11 +90,12 @@ public class TextAndChoiceManager : MonoBehaviour
                 {
                     DialogText.text += TextList[PrintCount];
                 }
-                
 
+                
                 //Show new characters
                 for (int i = prevCharacters; i <= DialogText.text.Length; ++i)
                 {
+                    float waittime = Random.Range(-0.02f, 0.02f) + m_TextSlider.value;
                     DialogText.maxVisibleCharacters = i;
                     if (PrintCount % 2 == 0)
                     {
@@ -103,13 +105,15 @@ public class TextAndChoiceManager : MonoBehaviour
                     {
                         FMODUnity.RuntimeManager.PlayOneShot(CompSound);
                     }
-                    yield return new WaitForSeconds(Random.Range(0.02f,0.05f));
-                    
-                    
+                    yield return new WaitForSeconds(waittime);
+
+                    if (i > 0)
+                    {
                         if (DialogText.text[i - 1] == '.' || DialogText.text[i - 1] == ',')
                         {
                             yield return new WaitForSeconds(Random.Range(0.7f, 1.0f));
                         }
+                    }
                     
                 }
                 PrintCount++;
